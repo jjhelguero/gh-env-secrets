@@ -9,9 +9,9 @@ env:
 jobs:
   test:
     env:
-      MONGODB_CLUSTER_ADDRESS: cluster0.4kaefaf.mongodb.net
-      MONGODB_USERNAME: jjhelguero
-      MONGODB_PASSWORD: HOo15sqt9ga3QvV1
+      MONGODB_CLUSTER_ADDRESS: ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+      MONGODB_PASSWORD: $${{ secrets.MONGODB_PASSWORD }}
       PORT: 3000
     environment: testing
     runs-on: ubuntu-latest
@@ -37,6 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output information
+      # env.MONGODB_USERNAME is set at test job level so this will be blank
+      # MONGODB_DB_NAME is set at workflow level so this will be populated
         run: |        
           echo "MONGODO_USERNAME: ${{ env.MONGODB_USERNAME }}"
           echo "MONGODB_DB_NAME: $MONGODB_DB_NAME"
